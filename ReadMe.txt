@@ -15,10 +15,10 @@ This sample assumes some familiarity with the Core Data framework, and with UIKi
 Build and runtime Requirements
 ------------------------------
 Build Requirements
-Mac OS X 10.5.7, Xcode 3.1, iPhone OS 3.0.
+iOS 4.0 SDK
 
 Runtime Requirements
-Mac OS X 10.5.7, iPhone OS 3.0.
+iPhone OS 3.2 or later
 
 
 Running the Sample
@@ -60,6 +60,11 @@ The Core Data managed object model for the application.
 
 Changes from Previous Versions
 ------------------------------
+Version 1.3
+Added CFBundleIconFiles in Info.plist.
+
+Version 1.2
+Upgraded project to build with the iOS 4.0 SDK.
 
 Version 1.1
 Updated to use NSFetchedResultsController's controllerWillChangeContent: delegate method, and an update to UITableView's change-handling, to allow for more fluid updates.
@@ -68,4 +73,4 @@ Corrected a memory leak in EditingViewController.
 Version 1.0
 First release.
 ===========================================================================
-Copyright (C) 2009 Apple Inc. All rights reserved.
+Copyright (C) 2009-2010 Apple Inc. All rights reserved.

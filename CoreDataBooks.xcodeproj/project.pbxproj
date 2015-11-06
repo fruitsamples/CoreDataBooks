@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18247E0711D902700022009F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 18247E0611D902700022009F /* iTunesArtwork */; };
+		184F5F6A11D142D700B9AF43 /* EditingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6411D142D700B9AF43 /* EditingView.xib */; };
+		184F5F6B11D142D700B9AF43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6611D142D700B9AF43 /* MainWindow.xib */; };
+		184F5F6C11D142D700B9AF43 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6811D142D700B9AF43 /* RootViewController.xib */; };
+		184F5F7411D142EF00B9AF43 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6D11D142EF00B9AF43 /* Icon-72.png */; };
+		184F5F7511D142EF00B9AF43 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */; };
+		184F5F7611D142EF00B9AF43 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6F11D142EF00B9AF43 /* Icon-Small.png */; };
+		184F5F7711D142EF00B9AF43 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F7011D142EF00B9AF43 /* Icon-Small@2x.png */; };
+		184F5F7811D142EF00B9AF43 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F7111D142EF00B9AF43 /* Icon.png */; };
+		184F5F7911D142EF00B9AF43 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F7211D142EF00B9AF43 /* Icon@2x.png */; };
 		1D3623260D0F684500981E51 /* CoreDataBooksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* CoreDataBooksAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		28860B770F44E54D00985440 /* CoreDataBooks.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28860B760F44E54D00985440 /* CoreDataBooks.xcdatamodel */; };
@@ -20,14 +30,21 @@
 		28C95B0B0F4F9A7F0037F30F /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B080F4F9A7F0037F30F /* AddViewController.m */; };
 		28C95B0C0F4F9A7F0037F30F /* EditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0A0F4F9A7F0037F30F /* EditingViewController.m */; };
 		28C95B0F0F4F9A880037F30F /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0E0F4F9A880037F30F /* Book.m */; };
-		28C95B130F4F9A970037F30F /* EditingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C95B100F4F9A970037F30F /* EditingView.xib */; };
-		28C95B140F4F9A970037F30F /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C95B110F4F9A970037F30F /* MainWindow.xib */; };
-		28C95B150F4F9A970037F30F /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C95B120F4F9A970037F30F /* RootViewController.xib */; };
 		28EFD6270F687AB4001C24BF /* CoreDataBooks.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */; };
 		28F22DE30F69AF6F0039BA5B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28F22DE20F69AF6F0039BA5B /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18247E0611D902700022009F /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = images/iTunesArtwork; sourceTree = "<group>"; };
+		184F5F6511D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditingView.xib; sourceTree = "<group>"; };
+		184F5F6711D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		184F5F6911D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		184F5F6D11D142EF00B9AF43 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "images/Icon-72.png"; sourceTree = "<group>"; };
+		184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "images/Icon-Small-50.png"; sourceTree = "<group>"; };
+		184F5F6F11D142EF00B9AF43 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "images/Icon-Small.png"; sourceTree = "<group>"; };
+		184F5F7011D142EF00B9AF43 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@2x.png"; path = "images/Icon-Small@2x.png"; sourceTree = "<group>"; };
+		184F5F7111D142EF00B9AF43 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = images/Icon.png; sourceTree = "<group>"; };
+		184F5F7211D142EF00B9AF43 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* CoreDataBooksAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataBooksAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* CoreDataBooksAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataBooksAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* CoreDataBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,9 +66,6 @@
 		28C95B0A0F4F9A7F0037F30F /* EditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditingViewController.m; path = Classes/EditingViewController.m; sourceTree = "<group>"; };
 		28C95B0D0F4F9A880037F30F /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = Classes/Book.h; sourceTree = "<group>"; };
 		28C95B0E0F4F9A880037F30F /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Book.m; path = Classes/Book.m; sourceTree = "<group>"; };
-		28C95B100F4F9A970037F30F /* EditingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditingView.xib; sourceTree = "<group>"; };
-		28C95B110F4F9A970037F30F /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28C95B120F4F9A970037F30F /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoreDataBooks.sqlite; sourceTree = "<group>"; };
 		28F22DE20F69AF6F0039BA5B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -142,9 +156,16 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				28C95B100F4F9A970037F30F /* EditingView.xib */,
-				28C95B110F4F9A970037F30F /* MainWindow.xib */,
-				28C95B120F4F9A970037F30F /* RootViewController.xib */,
+				18247E0611D902700022009F /* iTunesArtwork */,
+				184F5F6D11D142EF00B9AF43 /* Icon-72.png */,
+				184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */,
+				184F5F6F11D142EF00B9AF43 /* Icon-Small.png */,
+				184F5F7011D142EF00B9AF43 /* Icon-Small@2x.png */,
+				184F5F7111D142EF00B9AF43 /* Icon.png */,
+				184F5F7211D142EF00B9AF43 /* Icon@2x.png */,
+				184F5F6411D142D700B9AF43 /* EditingView.xib */,
+				184F5F6611D142D700B9AF43 /* MainWindow.xib */,
+				184F5F6811D142D700B9AF43 /* RootViewController.xib */,
 				28860B760F44E54D00985440 /* CoreDataBooks.xcdatamodel */,
 				28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */,
 				28F22DE20F69AF6F0039BA5B /* Localizable.strings */,
@@ -214,12 +235,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28C95B130F4F9A970037F30F /* EditingView.xib in Resources */,
-				28C95B140F4F9A970037F30F /* MainWindow.xib in Resources */,
-				28C95B150F4F9A970037F30F /* RootViewController.xib in Resources */,
 				288F3A520F6736BA00C86E86 /* ReadMe.txt in Resources */,
 				28EFD6270F687AB4001C24BF /* CoreDataBooks.sqlite in Resources */,
 				28F22DE30F69AF6F0039BA5B /* Localizable.strings in Resources */,
+				184F5F6A11D142D700B9AF43 /* EditingView.xib in Resources */,
+				184F5F6B11D142D700B9AF43 /* MainWindow.xib in Resources */,
+				184F5F6C11D142D700B9AF43 /* RootViewController.xib in Resources */,
+				184F5F7411D142EF00B9AF43 /* Icon-72.png in Resources */,
+				184F5F7511D142EF00B9AF43 /* Icon-Small-50.png in Resources */,
+				184F5F7611D142EF00B9AF43 /* Icon-Small.png in Resources */,
+				184F5F7711D142EF00B9AF43 /* Icon-Small@2x.png in Resources */,
+				184F5F7811D142EF00B9AF43 /* Icon.png in Resources */,
+				184F5F7911D142EF00B9AF43 /* Icon@2x.png in Resources */,
+				18247E0711D902700022009F /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +270,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		184F5F6411D142D700B9AF43 /* EditingView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				184F5F6511D142D700B9AF43 /* en */,
+			);
+			name = EditingView.xib;
+			sourceTree = "<group>";
+		};
+		184F5F6611D142D700B9AF43 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				184F5F6711D142D700B9AF43 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		184F5F6811D142D700B9AF43 /* RootViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				184F5F6911D142D700B9AF43 /* en */,
+			);
+			name = RootViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -278,8 +333,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -291,8 +347,9 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PREBINDING = NO;
-				SDKROOT = iphonesimulator3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
