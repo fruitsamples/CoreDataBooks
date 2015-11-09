@@ -9,7 +9,7 @@
  
  The root view controller creates and configures an instance of NSFetchedResultsController to manage the collection of books.  The view controller's managed object context is supplied by the application's delegate. When the user adds a new book, the root view controller creates a new managed object context to pass to the add view controller; this ensures that any changes made in the add controller do not affect the main managed object context, and they can be committed or discarded as a whole.
  
-  Version: 1.1
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -49,7 +49,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
@@ -59,43 +59,52 @@
 #import "Book.h"
 
 
+@interface RootViewController ()
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
+
+@end
+
+
 @implementation RootViewController
 
-@synthesize fetchedResultsController, managedObjectContext, addingManagedObjectContext;
+@synthesize fetchedResultsController=_fetchedResultsController, managedObjectContext=_managedObjectContext, rightBarButtonItem=_rightBarButtonItem;
 
 
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-	
-	self.title = @"Books";
-	// Set up the edit and add buttons.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-	// Configure the add button.
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBook)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    [addButton release];
-	
-	NSError *error;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
+    // Set up the edit and add buttons.
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+        
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 
-- (void)viewWillAppear {
-	[self.tableView reloadData];
+- (void)viewWillAppear
+{
+    [self.tableView reloadData];
 }
 
 
-- (void)viewDidUnload {
-	// Release any properties that are loaded in viewDidLoad or can be recreated lazily.
-	self.fetchedResultsController = nil;
+- (void)viewDidUnload
+{
+    // Release any properties that are loaded in viewDidLoad or can be recreated lazily.
+    self.fetchedResultsController = nil;
 }
 
 
@@ -106,275 +115,263 @@
  The data source methods are handled primarily by the fetch results controller
  */
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[fetchedResultsController sections] count];
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self.fetchedResultsController sections] count];
 }
 
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-	return [sectionInfo numberOfObjects];
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
 
 
 // Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{    
+    // Configure the cell to show the book's title
+    Book *book = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = book.title;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{    
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
     
     // Configure the cell.
-	[self configureCell:cell atIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	
-    // Configure the cell to show the book's title
-	Book *book = [fetchedResultsController objectAtIndexPath:indexPath];
-	cell.textLabel.text = book.title;
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    // Display the authors' names as section headings.
+    return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
 }
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	// Display the authors' names as section headings.
-    return [[[fetchedResultsController sections] objectAtIndex:section] name];
-}
-
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-		
-		// Delete the managed object.
-		NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
-		[context deleteObject:[fetchedResultsController objectAtIndexPath:indexPath]];
-		
-		NSError *error;
-		if (![context save:&error]) {
-			// Update to handle the error appropriately.
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-		}
+        
+        // Delete the managed object.
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error;
+        if (![context save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
     }   
 }
 
 
 #pragma mark -
-#pragma mark Selection and moving
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	
-    // Create and push a detail view controller.
-	DetailViewController *detailViewController = [[DetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    Book *selectedBook = (Book *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-    // Pass the selected book to the new view controller.
-    detailViewController.book = selectedBook;
-	[self.navigationController pushViewController:detailViewController animated:YES];
-	[detailViewController release];
-}
+#pragma mark Table view editing
 
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
     // The table view should not be re-orderable.
     return NO;
 }
 
 
-#pragma mark -
-#pragma mark Adding a Book
-
-/**
- Creates a new book, an AddViewController to manage addition of the book, and a new managed object context for the add controller to keep changes made to the book discrete from the application's managed object context until the book is saved.
- IMPORTANT: It's not necessary to use a second context for this. You could just use the existing context, which would simplify some of the code -- you wouldn't need to merge changes after a save, for example. This implementation, though, illustrates a pattern that may sometimes be useful (where you want to maintain a separate set of edits).  The root view controller sets itself as the delegate of the add controller so that it can be informed when the user has completed the add operation -- either saving or canceling (see addViewController:didFinishWithSave:).
-*/
-- (IBAction)addBook {
-	
-    AddViewController *addViewController = [[AddViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	addViewController.delegate = self;
-	
-	// Create a new managed object context for the new book -- set its persistent store coordinator to the same as that from the fetched results controller's context.
-	NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] init];
-	self.addingManagedObjectContext = addingContext;
-	[addingContext release];
-	
-	[addingManagedObjectContext setPersistentStoreCoordinator:[[fetchedResultsController managedObjectContext] persistentStoreCoordinator]];
-		
-	addViewController.book = (Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:addingContext];
-	
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addViewController];
-	
-    [self.navigationController presentModalViewController:navController animated:YES];
-	
-	[addViewController release];
-	[navController release];
-}
-
-
-/**
- Add controller's delegate method; informs the delegate that the add operation has completed, and indicates whether the user saved the new book.
- */
-- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save {
-	
-	if (save) {
-		/*
-		 The new book is associated with the add controller's managed object context.
-		 This is good because it means that any edits that are made don't affect the application's main managed object context -- it's a way of keeping disjoint edits in a separate scratchpad -- but it does make it more difficult to get the new book registered with the fetched results controller.
-		 First, you have to save the new book.  This means it will be added to the persistent store.  Then you can retrieve a corresponding managed object into the application delegate's context.  Normally you might do this using a fetch or using objectWithID: -- for example
-		 
-		 NSManagedObjectID *newBookID = [controller.book objectID];
-		 NSManagedObject *newBook = [applicationContext objectWithID:newBookID];
-		 
-		 These techniques, though, won't update the fetch results controller, which only observes change notifications in its context.
-		 You don't want to tell the fetch result controller to perform its fetch again because this is an expensive operation.
-		 You can, though, update the main context using mergeChangesFromContextDidSaveNotification: which will emit change notifications that the fetch results controller will observe.
-		 To do this:
-		 1	Register as an observer of the add controller's change notifications
-		 2	Perform the save
-		 3	In the notification method (addControllerContextDidSave:), merge the changes
-		 4	Unregister as an observer
-		 */
-		NSNotificationCenter *dnc = [NSNotificationCenter defaultCenter];
-		[dnc addObserver:self selector:@selector(addControllerContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:addingManagedObjectContext];
-		
-		NSError *error;
-		if (![addingManagedObjectContext save:&error]) {
-			// Update to handle the error appropriately.
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-		}
-		[dnc removeObserver:self name:NSManagedObjectContextDidSaveNotification object:addingManagedObjectContext];
-	}
-	// Release the adding managed object context.
-	self.addingManagedObjectContext = nil;
-
-	// Dismiss the modal view to return to the main list
-    [self dismissModalViewControllerAnimated:YES];
-}
-
-
-/**
- Notification from the add controller's context's save operation. This is used to update the fetched results controller's managed object context with the new book instead of performing a fetch (which would be a much more computationally expensive operation).
- */
-- (void)addControllerContextDidSave:(NSNotification*)saveNotification {
-	
-	NSManagedObjectContext *context = [fetchedResultsController managedObjectContext];
-	// Merging changes causes the fetched results controller to update its results
-	[context mergeChangesFromContextDidSaveNotification:saveNotification];	
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{    
+    [super setEditing:editing animated:animated];
+    
+    if (editing) {
+        self.rightBarButtonItem = self.navigationItem.rightBarButtonItem;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = self.rightBarButtonItem;
+        self.rightBarButtonItem = nil;
+    }
 }
 
 
 #pragma mark -
 #pragma mark Fetched results controller
 
-/**
+/*
  Returns the fetched results controller. Creates and configures the controller if necessary.
  */
-- (NSFetchedResultsController *)fetchedResultsController {
-    
-    if (fetchedResultsController != nil) {
-        return fetchedResultsController;
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
     }
     
-	// Create and configure a fetch request with the Book entity.
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:managedObjectContext];
-	[fetchRequest setEntity:entity];
-	
-	// Create the sort descriptors array.
-	NSSortDescriptor *authorDescriptor = [[NSSortDescriptor alloc] initWithKey:@"author" ascending:YES];
-	NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:authorDescriptor, titleDescriptor, nil];
-	[fetchRequest setSortDescriptors:sortDescriptors];
-	
-	// Create and initialize the fetch results controller.
-	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:@"author" cacheName:@"Root"];
-	self.fetchedResultsController = aFetchedResultsController;
-	fetchedResultsController.delegate = self;
-	
-	// Memory management.
-	[aFetchedResultsController release];
-	[fetchRequest release];
-	[authorDescriptor release];
-	[titleDescriptor release];
-	[sortDescriptors release];
-	
-	return fetchedResultsController;
+    // Create and configure a fetch request with the Book entity.
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Book" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Create the sort descriptors array.
+    NSSortDescriptor *authorDescriptor = [[NSSortDescriptor alloc] initWithKey:@"author" ascending:YES];
+    NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:authorDescriptor, titleDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    // Create and initialize the fetch results controller.
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"author" cacheName:@"Root"];
+    _fetchedResultsController.delegate = self;
+    
+    // Memory management.
+    
+    return _fetchedResultsController;
 }    
 
 
-/**
- Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
+/*
+ NSFetchedResultsController delegate methods to respond to additions, removals and so on.
  */
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-	// The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-	[self.tableView beginUpdates];
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+    [self.tableView beginUpdates];
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-	
-	UITableView *tableView = self.tableView;
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{    
+    UITableView *tableView = self.tableView;
 
-	switch(type) {
-			
-		case NSFetchedResultsChangeInsert:
-			[tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeDelete:
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeUpdate:
-			[self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-			break;
-			
-		case NSFetchedResultsChangeMove:
-			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-	}
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
 }
 
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-	
-	switch(type) {
-			
-		case NSFetchedResultsChangeInsert:
-			[self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-			
-		case NSFetchedResultsChangeDelete:
-			[self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-			break;
-	}
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{    
+    switch(type) {
+            
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
 }
 
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-	// The fetch controller has sent all current change notifications, so tell the table view to process all updates.
-	[self.tableView endUpdates];
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+    [self.tableView endUpdates];
 }
 
 
-#pragma mark -
-#pragma mark Memory management
+#pragma mark - Segue management
 
-- (void)dealloc {
-	[fetchedResultsController release];
-	[managedObjectContext release];
-	[addingManagedObjectContext release];
-    [super dealloc];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{    
+    if ([[segue identifier] isEqualToString:@"AddBook"]) {
+        
+        /*
+         The destination view controller for this segue is an AddViewController to manage addition of the book.
+         This block a new managed object context as a child of the root view controller's context. It then creates a new book using the child context. This means that changes made to the book remain discrete from the application's managed object context until the book's context is saved.
+          The root view controller sets itself as the delegate of the add controller so that it can be informed when the user has completed the add operation -- either saving or canceling (see addViewController:didFinishWithSave:).
+         IMPORTANT: It's not necessary to use a second context for this. You could just use the existing context, which would simplify some of the code -- you wouldn't need to perform two saves, for example. This implementation, though, illustrates a pattern that may sometimes be useful (where you want to maintain a separate set of edits).
+         */
+        
+        UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
+        AddViewController *addViewController = (AddViewController *)[navController topViewController];
+        addViewController.delegate = self;
+        
+        // Create a new managed object context for the new book; set its parent to the fetched results controller's context.
+        NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [addingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
+        
+        Book *newBook = (Book *)[NSEntityDescription insertNewObjectForEntityForName:@"Book" inManagedObjectContext:addingContext];
+        addViewController.book = newBook;
+        addViewController.managedObjectContext = addingContext;
+    }
+    
+    
+    if ([[segue identifier] isEqualToString:@"ShowSelectedBook"]) {
+        
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Book *selectedBook = (Book *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+
+        // Pass the selected book to the new view controller.
+        DetailViewController *detailViewController = (DetailViewController *)[segue destinationViewController];
+        detailViewController.book = selectedBook;
+    }    
+}
+
+
+#pragma mark - Add controller delegate
+
+/*
+ Add controller's delegate method; informs the delegate that the add operation has completed, and indicates whether the user saved the new book.
+ */
+- (void)addViewController:(AddViewController *)controller didFinishWithSave:(BOOL)save
+{
+    if (save) {
+        /*
+         The new book is associated with the add controller's managed object context.
+         This means that any edits that are made don't affect the application's main managed object context -- it's a way of keeping disjoint edits in a separate scratchpad. Saving changes to that context, though, only push changes to the fetched results controller's context. To save the changes to the persistent store, you have to save the fetch results controller's context as well.
+         */        
+        NSError *error;
+        NSManagedObjectContext *addingManagedObjectContext = [controller managedObjectContext];
+        if (![addingManagedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        if (![[self.fetchedResultsController managedObjectContext] save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+             
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+    
+    // Dismiss the modal view to return to the main list
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

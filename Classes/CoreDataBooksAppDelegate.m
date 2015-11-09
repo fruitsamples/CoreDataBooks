@@ -2,7 +2,7 @@
 /*
      File: CoreDataBooksAppDelegate.m
  Abstract: Application delegate to set up the Core Data stack and configure the first view and navigation controllers.
-  Version: 1.1
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -42,7 +42,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
@@ -50,56 +50,67 @@
 #import "RootViewController.h"
 
 
+@interface CoreDataBooksAppDelegate ()
+
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+- (NSURL *)applicationDocumentsDirectory;
+- (void)saveContext;
+
+@end
+
+
+
 @implementation CoreDataBooksAppDelegate
 
-@synthesize window;
-@synthesize navigationController;
+@synthesize window=_window;
+@synthesize managedObjectModel=_managedObjectModel, managedObjectContext=_managedObjectContext, persistentStoreCoordinator=_persistentStoreCoordinator;
 
 
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-
-	RootViewController *rootViewController = (RootViewController *)[navigationController topViewController];
-	rootViewController.managedObjectContext = self.managedObjectContext;
-	
-	// Configure and show the window
-	[window addSubview:[navigationController view]];
-	[window makeKeyAndVisible];
+- (void)applicationDidFinishLaunching:(UIApplication *)application
+{
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    RootViewController *rootViewController = (RootViewController *)[[navigationController viewControllers] objectAtIndex:0];
+    rootViewController.managedObjectContext = self.managedObjectContext;
 }
 
 
-/**
- applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
- */
-- (void)applicationWillTerminate:(UIApplication *)application {
-	
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    [self saveContext];
+}
+
+
+- (void)applicationWillResignActive:(UIApplication *)application
+{
+    [self saveContext];
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [self saveContext];
+}
+
+
+- (void)saveContext
+{
     NSError *error;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-			// Update to handle the error appropriately.
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
+    if (_managedObjectContext != nil) {
+        if ([_managedObjectContext hasChanges] && ![_managedObjectContext save:&error]) {
+            /*
+             Replace this implementation with code to handle the error appropriately.
+     
+             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+             */
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
         } 
-    }
-}
-
-
-#pragma mark -
-#pragma mark Saving
-
-/**
- Performs the save action for the application, which is to send the save:
- message to the application's managed object context.
- */
-- (IBAction)saveAction:(id)sender {
-	
-    NSError *error;
-    if (![[self managedObjectContext] save:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
     }
 }
 
@@ -107,106 +118,106 @@
 #pragma mark -
 #pragma mark Core Data stack
 
-/**
+/*
  Returns the managed object context for the application.
  If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
  */
-- (NSManagedObjectContext *) managedObjectContext {
-	
-    if (managedObjectContext != nil) {
-        return managedObjectContext;
+- (NSManagedObjectContext *) managedObjectContext
+{
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
     }
-	
+
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [managedObjectContext setPersistentStoreCoordinator: coordinator];
+        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        [_managedObjectContext setPersistentStoreCoordinator: coordinator];
     }
-    return managedObjectContext;
+    return _managedObjectContext;
 }
 
 
-/**
- Returns the managed object model for the application.
- If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
- */
-- (NSManagedObjectModel *)managedObjectModel {
-	
-    if (managedObjectModel != nil) {
-        return managedObjectModel;
+// Returns the managed object model for the application.
+// If the model doesn't already exist, it is created from the application's model.
+- (NSManagedObjectModel *)managedObjectModel
+{
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
     }
-    managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
-    return managedObjectModel;
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
 }
 
 
-/**
+/*
  Returns the persistent store coordinator for the application.
  If the coordinator doesn't already exist, it is created and the application's store added to it.
  */
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-	
-    if (persistentStoreCoordinator != nil) {
-        return persistentStoreCoordinator;
+- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+{
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
     }
-	
-	
-	NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"CoreDataBooks.sqlite"];
-	/*
-	 Set up the store.
-	 For the sake of illustration, provide a pre-populated default store.
-	 */
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	// If the expected store doesn't exist, copy the default store.
-	if (![fileManager fileExistsAtPath:storePath]) {
-		NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"CoreDataBooks" ofType:@"sqlite"];
-		if (defaultStorePath) {
-			[fileManager copyItemAtPath:defaultStorePath toPath:storePath error:NULL];
-		}
-	}
 
-	NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
-	
-	NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];	
-    persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataBooks.CDBStore"];
 
-	NSError *error;
-	if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error]) {
-		// Update to handle the error appropriately.
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-    }    
-	
-    return persistentStoreCoordinator;
+    /*
+     Set up the store.
+     For the sake of illustration, provide a pre-populated default store.
+     */
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // If the expected store doesn't exist, copy the default store.
+    if (![fileManager fileExistsAtPath:[storeURL path]]) {
+        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];
+        if (defaultStoreURL) {
+            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
+        }
+    }
+
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+
+    NSError *error;
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+         
+         Typical reasons for an error here include:
+         * The persistent store is not accessible;
+         * The schema for the persistent store is incompatible with current managed object model.
+         Check the error message to determine what the actual problem was.
+         
+         
+         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
+         
+         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
+         * Simply deleting the existing store:
+         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
+         
+         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
+         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
+         
+         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
+         
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+
+    return _persistentStoreCoordinator;
 }
 
 
 #pragma mark -
 #pragma mark Application's documents directory
 
-/**
- Returns the path to the application's documents directory.
- */
-- (NSString *)applicationDocumentsDirectory {
-	
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
-}
-
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
-    
-	[navigationController release];
-	[window release];
-	[super dealloc];
+// Returns the URL to the application's Documents directory.
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 

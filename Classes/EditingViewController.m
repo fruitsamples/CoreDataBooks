@@ -1,8 +1,8 @@
 
 /*
      File: EditingViewController.m
- Abstract: The table view controller responsible for editing a field of data, text or date.
-  Version: 1.1
+ Abstract: The table view controller responsible for editing a field of data -- either text or a date.
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -42,53 +42,64 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
 #import "EditingViewController.h"
 
-@implementation EditingViewController
 
-@synthesize textField, editedObject, editedFieldKey, editedFieldName, editingDate, datePicker;
+@interface EditingViewController ()
+
+@property (nonatomic, weak) IBOutlet UITextField *textField;
+@property (nonatomic, weak) IBOutlet UIDatePicker *datePicker;
+
+@property (nonatomic, readonly, getter=isEditingDate) BOOL editingDate;
+
+@end
+
+
+
+@implementation EditingViewController
+{
+    BOOL hasDeterminedWhetherEditingDate;
+}
+
+@synthesize textField=_textField, editedObject=_editedObject, editedFieldKey=_editedFieldKey, editedFieldName=_editedFieldName, editingDate=_editingDate, datePicker=_datePicker;
 
 
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void)viewDidLoad {
-	// Set the title to the user-visible name of the field.
-	self.title = editedFieldName;
-
-	// Configure the save and cancel buttons.
-	UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
-	self.navigationItem.rightBarButtonItem = saveButton;
-	[saveButton release];
-	
-	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
-	self.navigationItem.leftBarButtonItem = cancelButton;
-	[cancelButton release];
+- (void)viewDidLoad
+{
+    // Set the title to the user-visible name of the field.
+    self.title = self.editedFieldName;
 }
 
 
-- (void)viewWillAppear:(BOOL)animated {
-	
-	[super viewWillAppear:animated];
-	
-	// Configure the user interface according to state.
-    if (editingDate) {
-        textField.hidden = YES;
-        datePicker.hidden = NO;
-		NSDate *date = [editedObject valueForKey:editedFieldKey];
-        if (date == nil) date = [NSDate date];
-        datePicker.date = date;
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Configure the user interface according to state.
+    if (self.editingDate) {
+        
+        self.textField.hidden = YES;
+        self.datePicker.hidden = NO;
+        NSDate *date = [self.editedObject valueForKey:self.editedFieldKey];
+        if (date == nil) {
+            date = [NSDate date];
+        }
+        self.datePicker.date = date;
     }
-	else {
-        textField.hidden = NO;
-        datePicker.hidden = YES;
-        textField.text = [editedObject valueForKey:editedFieldKey];
-		textField.placeholder = self.title;
-        [textField becomeFirstResponder];
+    else {
+        
+        self.textField.hidden = NO;
+        self.datePicker.hidden = YES;
+        self.textField.text = [self.editedObject valueForKey:self.editedFieldKey];
+        self.textField.placeholder = self.title;
+        [self.textField becomeFirstResponder];
     }
 }
 
@@ -96,40 +107,62 @@
 #pragma mark -
 #pragma mark Save and cancel operations
 
-- (IBAction)save {
-	
-	// Set the action name for the undo operation.
-	NSUndoManager * undoManager = [[editedObject managedObjectContext] undoManager];
-	[undoManager setActionName:[NSString stringWithFormat:@"%@", editedFieldName]];
-	
+- (IBAction)save:(id)sender
+{
+    // Set the action name for the undo operation.
+    NSUndoManager * undoManager = [[self.editedObject managedObjectContext] undoManager];
+    [undoManager setActionName:[NSString stringWithFormat:@"%@", self.editedFieldName]];
+    
     // Pass current value to the edited object, then pop.
-    if (editingDate) {
-        [editedObject setValue:datePicker.date forKey:editedFieldKey];
+    if (self.editingDate) {
+        [self.editedObject setValue:self.datePicker.date forKey:self.editedFieldKey];
     }
-	else {
-        [editedObject setValue:textField.text forKey:editedFieldKey];
+    else {
+        [self.editedObject setValue:self.textField.text forKey:self.editedFieldKey];
     }
-	
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
-- (IBAction)cancel {
+- (IBAction)cancel:(id)sender
+{
     // Don't pass current value to the edited object, just pop.
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 
 #pragma mark -
-#pragma mark Memory management
+#pragma mark Manage whether editing a date
 
-- (void)dealloc {
-    [textField release];
-    [editedObject release];
-    [editedFieldKey release];
-    [editedFieldName release];
-    [datePicker release];
-	[super dealloc];
+- (void)setEditedFieldKey:(NSString *)editedFieldKey
+{
+    if (![_editedFieldKey isEqualToString:editedFieldKey]) {
+        hasDeterminedWhetherEditingDate = NO;
+        _editedFieldKey = editedFieldKey;
+    }
+}
+
+
+- (BOOL)isEditingDate
+{
+    if (hasDeterminedWhetherEditingDate == YES) {
+        return _editingDate;
+    }
+    
+    NSEntityDescription *entity = [self.editedObject entity];
+    NSAttributeDescription *attribute = [[entity attributesByName] objectForKey:self.editedFieldKey];
+    NSString *attributeClassName = [attribute attributeValueClassName];
+    
+    if ([attributeClassName isEqualToString:@"NSDate"]) {
+        _editingDate = YES;
+    }
+    else {
+        _editingDate = NO;
+    }
+    
+    hasDeterminedWhetherEditingDate = YES;
+    return _editingDate;
 }
 
 

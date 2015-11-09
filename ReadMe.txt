@@ -5,7 +5,7 @@ CoreDataBooks
 This sample illustrates a number of aspects of working with the Core Data framework with an iPhone application:
 
 * Use of an instance of NSFetchedResultsController object to manage a collection of objects to be displayed in a table view.
-* Use of a second managed object context to isolate changes during an add operation.
+* Use of a child managed object context to isolate changes during an add operation.
 * Undo and redo. 
 * Database initialization.
 
@@ -15,10 +15,10 @@ This sample assumes some familiarity with the Core Data framework, and with UIKi
 Build and runtime Requirements
 ------------------------------
 Build Requirements
-iOS 4.0 SDK
+iOS 5 SDK
 
 Runtime Requirements
-iPhone OS 3.2 or later
+iOS 5 or later
 
 
 Running the Sample
@@ -45,7 +45,7 @@ AddViewController.{h,m}
 Subclass of DetailViewController with functionality for managing new Book objects.
 
 EditingViewController.{h,m}
-View for editing a field of data, text or date.
+View for editing a field of data -- either text or a date.
 
 Book.{h,m}
 A simple managed object class to represent a book.
@@ -60,6 +60,10 @@ The Core Data managed object model for the application.
 
 Changes from Previous Versions
 ------------------------------
+Version 2.0
+Updated to use ARC and storyboard.
+Uses a child managed object context instead of a peer context.
+
 Version 1.3
 Added CFBundleIconFiles in Info.plist.
 

@@ -3,7 +3,9 @@
      File: AddViewController.m
  Abstract: The table view controller responsible managing addition of a new book to the application.
   When editing ends, the controller sends a message to its delegate (in this case, the root view controller) to tell it that it finished editing and whether the user saved their changes. It's up to the delegate to actually commit the changes.
-  Version: 1.1
+ The view controller needs a strong reference to the managed object context to make sure it doesn't disappear while being used (a managed object doesn't have a strong reference to its context).
+ 
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -43,53 +45,59 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
 #import "AddViewController.h"
 #import "Book.h"
 
+
+@interface AddViewController ()
+
+- (IBAction)cancel:(id)sender;
+- (IBAction)save:(id)sender;
+
+@end
+
+
 @implementation AddViewController
 
-@synthesize delegate;
+@synthesize delegate=_delegate, managedObjectContext=_managedObjectContext;
 
 
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void)viewDidLoad {
-	
-	[super viewDidLoad];
-    // Override the DetailViewController viewDidLoad with different navigation bar items and title.
-    self.title = @"New Book";
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
-            target:self action:@selector(cancel:)] autorelease];
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave 
-            target:self action:@selector(save:)] autorelease];
-	
-	// Set up the undo manager and set editing state to YES.
-	[self setUpUndoManager];
-	self.editing = YES;
+- (void)viewDidLoad
+{    
+    [super viewDidLoad];
+    
+    // Set up the undo manager and set editing state to YES.
+    [self setUpUndoManager];
+    self.editing = YES;
 }
 
 
-- (void)viewDidUnload {
-	[super viewDidUnload];
-	// Release any properties that are loaded in viewDidLoad or can be recreated lazily.
-	[self cleanUpUndoManager];	
+- (void)viewDidUnload
+{    
+    [super viewDidUnload];
+    [self cleanUpUndoManager];    
 }
 
 
 #pragma mark -
 #pragma mark Save and cancel operations
 
-- (IBAction)cancel:(id)sender {
-	[delegate addViewController:self didFinishWithSave:NO];
+- (IBAction)cancel:(id)sender
+{
+    [self.delegate addViewController:self didFinishWithSave:NO];
 }
 
-- (IBAction)save:(id)sender {
-	[delegate addViewController:self didFinishWithSave:YES];
+
+- (IBAction)save:(id)sender
+{    
+    [self.delegate addViewController:self didFinishWithSave:YES];
 }
 
 

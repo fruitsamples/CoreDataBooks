@@ -1,8 +1,8 @@
 
 /*
      File: EditingViewController.h
- Abstract: The table view controller responsible for editing a field of data, text or date.
-  Version: 1.1
+ Abstract: The table view controller responsible for editing a field of data -- either text or a date.
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -42,33 +42,15 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
-@interface EditingViewController : UIViewController {
-	
-	UITextField *textField;
+@interface EditingViewController : UIViewController
 
-    NSManagedObject *editedObject;
-    NSString *editedFieldKey;
-    NSString *editedFieldName;
-	
-    BOOL editingDate;
-	UIDatePicker *datePicker;
-}
-
-@property (nonatomic, retain) IBOutlet UITextField *textField;
-
-@property (nonatomic, retain) NSManagedObject *editedObject;
-@property (nonatomic, retain) NSString *editedFieldKey;
-@property (nonatomic, retain) NSString *editedFieldName;
-
-@property (nonatomic, assign, getter=isEditingDate) BOOL editingDate;
-@property (nonatomic, retain) IBOutlet UIDatePicker *datePicker;
-
-- (IBAction)cancel;
-- (IBAction)save;
+@property (nonatomic, strong) NSManagedObject *editedObject;
+@property (nonatomic, strong) NSString *editedFieldKey;
+@property (nonatomic, strong) NSString *editedFieldName;
 
 @end
 

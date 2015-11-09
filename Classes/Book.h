@@ -2,7 +2,7 @@
 /*
      File: Book.h
  Abstract: A Core Data managed object class to represent information about a book.
-  Version: 1.1
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -42,19 +42,17 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
 #import <CoreData/CoreData.h>
 
 @interface Book : NSManagedObject  
-{
-}
 
-@property (nonatomic, retain) NSString *title;
-@property (nonatomic, retain) NSString *author;
-@property (nonatomic, retain) NSDate *copyright;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *author;
+@property (nonatomic, strong) NSDate *copyright;
 
 @end
 

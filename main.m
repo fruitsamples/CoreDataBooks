@@ -1,8 +1,8 @@
 /*
      File: main.m 
- Abstract: Main source file for this sample.
+ Abstract: Standard main file.
   
-  Version: 1.3 
+  Version: 2 
   
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple 
  Inc. ("Apple") in consideration of your agreement to the following 
@@ -42,14 +42,16 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE. 
   
- Copyright (C) 2010 Apple Inc. All Rights Reserved. 
+ Copyright (C) 2012 Apple Inc. All Rights Reserved. 
   
  */
 
+#import "CoreDataBooksAppDelegate.h"
+
 int main(int argc, char *argv[]) {
     
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-    return retVal;
+    @autoreleasepool {
+        int retVal = UIApplicationMain(argc, argv, nil, NSStringFromClass([CoreDataBooksAppDelegate class]));
+        return retVal;
+    }
 }

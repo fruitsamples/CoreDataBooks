@@ -3,14 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		18247E0711D902700022009F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 18247E0611D902700022009F /* iTunesArtwork */; };
-		184F5F6A11D142D700B9AF43 /* EditingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6411D142D700B9AF43 /* EditingView.xib */; };
-		184F5F6B11D142D700B9AF43 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6611D142D700B9AF43 /* MainWindow.xib */; };
-		184F5F6C11D142D700B9AF43 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6811D142D700B9AF43 /* RootViewController.xib */; };
 		184F5F7411D142EF00B9AF43 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6D11D142EF00B9AF43 /* Icon-72.png */; };
 		184F5F7511D142EF00B9AF43 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */; };
 		184F5F7611D142EF00B9AF43 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F6F11D142EF00B9AF43 /* Icon-Small.png */; };
@@ -19,26 +16,24 @@
 		184F5F7911D142EF00B9AF43 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 184F5F7211D142EF00B9AF43 /* Icon@2x.png */; };
 		1D3623260D0F684500981E51 /* CoreDataBooksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* CoreDataBooksAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		28860B770F44E54D00985440 /* CoreDataBooks.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 28860B760F44E54D00985440 /* CoreDataBooks.xcdatamodel */; };
+		2858AAB61528CA9400A1E836 /* CoreDataBooks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2858AAB41528CA9400A1E836 /* CoreDataBooks.xcdatamodeld */; };
+		285CE39B141C130C0083AF09 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 285CE399141C130C0083AF09 /* MainStoryboard.storyboard */; };
 		288832230F4D1BA200A03A78 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288832220F4D1BA200A03A78 /* CoreData.framework */; };
 		288832280F4D1BB200A03A78 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288832270F4D1BB200A03A78 /* CoreGraphics.framework */; };
 		2888322A0F4D1BB200A03A78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288832290F4D1BB200A03A78 /* Foundation.framework */; };
 		2888322C0F4D1BB200A03A78 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2888322B0F4D1BB200A03A78 /* UIKit.framework */; };
+		288C5DB6152A0CA100D11004 /* CoreDataBooks.CDBStore in Resources */ = {isa = PBXBuildFile; fileRef = 288C5DB5152A0CA100D11004 /* CoreDataBooks.CDBStore */; };
 		288F3A520F6736BA00C86E86 /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 288F3A510F6736BA00C86E86 /* ReadMe.txt */; };
 		28921A430F4CEE8D000D3C06 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28921A420F4CEE8D000D3C06 /* DetailViewController.m */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28C95B0B0F4F9A7F0037F30F /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B080F4F9A7F0037F30F /* AddViewController.m */; };
 		28C95B0C0F4F9A7F0037F30F /* EditingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0A0F4F9A7F0037F30F /* EditingViewController.m */; };
 		28C95B0F0F4F9A880037F30F /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C95B0E0F4F9A880037F30F /* Book.m */; };
-		28EFD6270F687AB4001C24BF /* CoreDataBooks.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */; };
 		28F22DE30F69AF6F0039BA5B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 28F22DE20F69AF6F0039BA5B /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		18247E0611D902700022009F /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = images/iTunesArtwork; sourceTree = "<group>"; };
-		184F5F6511D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EditingView.xib; sourceTree = "<group>"; };
-		184F5F6711D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		184F5F6911D142D700B9AF43 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
 		184F5F6D11D142EF00B9AF43 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-72.png"; path = "images/Icon-72.png"; sourceTree = "<group>"; };
 		184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small-50.png"; path = "images/Icon-Small-50.png"; sourceTree = "<group>"; };
 		184F5F6F11D142EF00B9AF43 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small.png"; path = "images/Icon-Small.png"; sourceTree = "<group>"; };
@@ -46,27 +41,28 @@
 		184F5F7111D142EF00B9AF43 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = images/Icon.png; sourceTree = "<group>"; };
 		184F5F7211D142EF00B9AF43 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "images/Icon@2x.png"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* CoreDataBooksAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataBooksAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* CoreDataBooksAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataBooksAppDelegate.m; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* CoreDataBooksAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CoreDataBooksAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1D6058910D05DD3D006BFB54 /* CoreDataBooks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataBooks.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		28860B760F44E54D00985440 /* CoreDataBooks.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataBooks.xcdatamodel; sourceTree = "<group>"; };
+		2858AAB51528CA9400A1E836 /* CoreDataBooks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataBooks.xcdatamodel; sourceTree = "<group>"; };
+		285CE39A141C130C0083AF09 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		2888321D0F4D1B9C00A03A78 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
 		288832220F4D1BA200A03A78 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		288832270F4D1BB200A03A78 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		288832290F4D1BB200A03A78 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2888322B0F4D1BB200A03A78 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288C5DB5152A0CA100D11004 /* CoreDataBooks.CDBStore */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoreDataBooks.CDBStore; sourceTree = "<group>"; };
 		288F3A510F6736BA00C86E86 /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
 		28921A410F4CEE8D000D3C06 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = Classes/DetailViewController.h; sourceTree = "<group>"; };
-		28921A420F4CEE8D000D3C06 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = Classes/DetailViewController.m; sourceTree = "<group>"; };
+		28921A420F4CEE8D000D3C06 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = DetailViewController.m; path = Classes/DetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28A0AAE50D9B0CCF005BE974 /* CoreDataBooks_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataBooks_Prefix.pch; sourceTree = "<group>"; };
 		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Classes/RootViewController.h; sourceTree = "<group>"; };
-		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; };
+		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = RootViewController.m; path = Classes/RootViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		28C95B070F4F9A7F0037F30F /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddViewController.h; path = Classes/AddViewController.h; sourceTree = "<group>"; };
 		28C95B080F4F9A7F0037F30F /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddViewController.m; path = Classes/AddViewController.m; sourceTree = "<group>"; };
 		28C95B090F4F9A7F0037F30F /* EditingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditingViewController.h; path = Classes/EditingViewController.h; sourceTree = "<group>"; };
 		28C95B0A0F4F9A7F0037F30F /* EditingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditingViewController.m; path = Classes/EditingViewController.m; sourceTree = "<group>"; };
 		28C95B0D0F4F9A880037F30F /* Book.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Book.h; path = Classes/Book.h; sourceTree = "<group>"; };
 		28C95B0E0F4F9A880037F30F /* Book.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Book.m; path = Classes/Book.m; sourceTree = "<group>"; };
-		28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = CoreDataBooks.sqlite; sourceTree = "<group>"; };
 		28F22DE20F69AF6F0039BA5B /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -105,6 +101,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		286FA52F1528C520009DFB0A /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				18247E0611D902700022009F /* iTunesArtwork */,
+				184F5F6D11D142EF00B9AF43 /* Icon-72.png */,
+				184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */,
+				184F5F6F11D142EF00B9AF43 /* Icon-Small.png */,
+				184F5F7011D142EF00B9AF43 /* Icon-Small@2x.png */,
+				184F5F7111D142EF00B9AF43 /* Icon.png */,
+				184F5F7211D142EF00B9AF43 /* Icon@2x.png */,
+			);
+			name = Art;
+			sourceTree = "<group>";
+		};
 		2882F5750F4CFBA10089C43B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,40 +146,32 @@
 				2882F5750F4CFBA10089C43B /* View Controllers */,
 				28921A570F4CF0D0000D3C06 /* Model Class */,
 				080E96DDFE201D6D7F000001 /* Application Delegate */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97315FDCFA39411CA2CEA /* Supporting Files */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+		29B97315FDCFA39411CA2CEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				28A0AAE50D9B0CCF005BE974 /* CoreDataBooks_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				8D1107310486CEB800E47090 /* Info.plist */,
 			);
-			name = "Other Sources";
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				18247E0611D902700022009F /* iTunesArtwork */,
-				184F5F6D11D142EF00B9AF43 /* Icon-72.png */,
-				184F5F6E11D142EF00B9AF43 /* Icon-Small-50.png */,
-				184F5F6F11D142EF00B9AF43 /* Icon-Small.png */,
-				184F5F7011D142EF00B9AF43 /* Icon-Small@2x.png */,
-				184F5F7111D142EF00B9AF43 /* Icon.png */,
-				184F5F7211D142EF00B9AF43 /* Icon@2x.png */,
-				184F5F6411D142D700B9AF43 /* EditingView.xib */,
-				184F5F6611D142D700B9AF43 /* MainWindow.xib */,
-				184F5F6811D142D700B9AF43 /* RootViewController.xib */,
-				28860B760F44E54D00985440 /* CoreDataBooks.xcdatamodel */,
-				28EFD6260F687AB4001C24BF /* CoreDataBooks.sqlite */,
+				288C5DB5152A0CA100D11004 /* CoreDataBooks.CDBStore */,
+				285CE399141C130C0083AF09 /* MainStoryboard.storyboard */,
+				2858AAB41528CA9400A1E836 /* CoreDataBooks.xcdatamodeld */,
 				28F22DE20F69AF6F0039BA5B /* Localizable.strings */,
-				8D1107310486CEB800E47090 /* Info.plist */,
+				286FA52F1528C520009DFB0A /* Art */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -211,8 +213,12 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CoreDataBooks" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -236,11 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				288F3A520F6736BA00C86E86 /* ReadMe.txt in Resources */,
-				28EFD6270F687AB4001C24BF /* CoreDataBooks.sqlite in Resources */,
 				28F22DE30F69AF6F0039BA5B /* Localizable.strings in Resources */,
-				184F5F6A11D142D700B9AF43 /* EditingView.xib in Resources */,
-				184F5F6B11D142D700B9AF43 /* MainWindow.xib in Resources */,
-				184F5F6C11D142D700B9AF43 /* RootViewController.xib in Resources */,
 				184F5F7411D142EF00B9AF43 /* Icon-72.png in Resources */,
 				184F5F7511D142EF00B9AF43 /* Icon-Small-50.png in Resources */,
 				184F5F7611D142EF00B9AF43 /* Icon-Small.png in Resources */,
@@ -248,6 +250,8 @@
 				184F5F7811D142EF00B9AF43 /* Icon.png in Resources */,
 				184F5F7911D142EF00B9AF43 /* Icon@2x.png in Resources */,
 				18247E0711D902700022009F /* iTunesArtwork in Resources */,
+				285CE39B141C130C0083AF09 /* MainStoryboard.storyboard in Resources */,
+				288C5DB6152A0CA100D11004 /* CoreDataBooks.CDBStore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,39 +265,23 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* CoreDataBooksAppDelegate.m in Sources */,
 				28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */,
-				28860B770F44E54D00985440 /* CoreDataBooks.xcdatamodel in Sources */,
 				28921A430F4CEE8D000D3C06 /* DetailViewController.m in Sources */,
 				28C95B0B0F4F9A7F0037F30F /* AddViewController.m in Sources */,
 				28C95B0C0F4F9A7F0037F30F /* EditingViewController.m in Sources */,
 				28C95B0F0F4F9A880037F30F /* Book.m in Sources */,
+				2858AAB61528CA9400A1E836 /* CoreDataBooks.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		184F5F6411D142D700B9AF43 /* EditingView.xib */ = {
+		285CE399141C130C0083AF09 /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				184F5F6511D142D700B9AF43 /* en */,
+				285CE39A141C130C0083AF09 /* en */,
 			);
-			name = EditingView.xib;
-			sourceTree = "<group>";
-		};
-		184F5F6611D142D700B9AF43 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				184F5F6711D142D700B9AF43 /* en */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		184F5F6811D142D700B9AF43 /* RootViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				184F5F6911D142D700B9AF43 /* en */,
-			);
-			name = RootViewController.xib;
+			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -303,12 +291,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CoreDataBooks_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = CoreDataBooks;
 			};
 			name = Debug;
@@ -317,10 +308,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CoreDataBooks_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = CoreDataBooks;
 			};
 			name = Release;
@@ -334,8 +328,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
-				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -348,8 +341,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
-				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -375,6 +367,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2858AAB41528CA9400A1E836 /* CoreDataBooks.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2858AAB51528CA9400A1E836 /* CoreDataBooks.xcdatamodel */,
+			);
+			currentVersion = 2858AAB51528CA9400A1E836 /* CoreDataBooks.xcdatamodel */;
+			path = CoreDataBooks.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
 }

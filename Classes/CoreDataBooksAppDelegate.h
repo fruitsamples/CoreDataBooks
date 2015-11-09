@@ -2,7 +2,7 @@
 /*
      File: CoreDataBooksAppDelegate.h
  Abstract: Application delegate to set up the Core Data stack and configure the first view and navigation controllers.
-  Version: 1.1
+  Version: 2
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -42,30 +42,13 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
-@interface CoreDataBooksAppDelegate : NSObject <UIApplicationDelegate> {
-    
-    NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@interface CoreDataBooksAppDelegate : NSObject <UIApplicationDelegate> 
 
-    UIWindow *window;
-    UINavigationController *navigationController;
-}
-
-- (IBAction)saveAction:sender;
-
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-@property (nonatomic, readonly) NSString *applicationDocumentsDirectory;
-
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong) UIWindow *window;
 
 @end
 
